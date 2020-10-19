@@ -47,7 +47,6 @@ function App() {
 
           setTableData(sortedData);
           setMapCountries(data);
-          console.log("from app>>", mapCountries);
           setCountries(countries);
         });
     };

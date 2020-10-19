@@ -3,7 +3,6 @@ import { Map, TileLayer } from "react-leaflet";
 import { showDataOnMap } from "../helpers/utils";
 
 function MapM({ countries, casesType, center, zoom }) {
-  console.log("from map", countries);
   return (
     <div className="map">
       <Map center={center} zoom={zoom}>
