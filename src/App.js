@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import InfoBox from "./components/InfoBox";
-import Map from "./components/Map";
+import MapM from "./components/MapM";
 import Table from "./components/Table";
+import LineGraph from "./components/LineGraph";
 import {
   Card,
   CardContent,
@@ -9,15 +10,18 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
-import "./App.css";
 import { sortData } from "./helpers/utils";
-import LineGraph from "./components/LineGraph";
+import "./App.css";
+import "leaflet/dist/leaflet.css";
 
 function App() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(2);
+  const [mapCountries, setMapCountries] = useState([]);
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -41,6 +45,8 @@ function App() {
           const sortedData = sortData(data);
 
           setTableData(sortedData);
+          setMapCountries(data);
+          console.log("from app>>", mapCountries);
           setCountries(countries);
         });
     };
@@ -49,8 +55,6 @@ function App() {
 
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
-    console.log(countryCode);
-    setCountry(countryCode);
 
     const url =
       countryCode === "worldwide"
@@ -60,11 +64,13 @@ function App() {
     await fetch(url)
       .then((res) => res.json())
       .then((data) => {
+        setCountry(countryCode);
         setCountryInfo(data);
+
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
       });
   };
-
-  console.log(countryInfo);
 
   return (
     <div className="app">
@@ -110,7 +116,7 @@ function App() {
         </div>
 
         {/* Map.jsx */}
-        <Map />
+        <MapM countries={mapCountries} center={mapCenter} zoom={mapZoom} />
       </div>
 
       <Card className="app__right">
