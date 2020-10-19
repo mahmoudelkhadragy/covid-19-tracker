@@ -86,6 +86,71 @@ body {
 .infoBox__cases--green {
   color: rgb(37, 197, 37);
 }
+/* table Component */
+.table {
+  margin-top: 20px;
+  overflow: scroll;
+  height: 400px;
+  color: #555;
+}
+.table table {
+  width: 100%;
+}
+.table tr,
+.table th {
+  display: flex;
+  justify-content: space-between;
+}
+tbody {
+  width: 100%;
+}
+.table tr:nth-of-type(odd) {
+  background-color: #f3f2f8;
+}
+.table__head {
+  background-color: rgb(239 237 237) !important;
+}
+.table td,
+.table th {
+  padding: 0.5rem;
+}
+
+/* map Component */
+.map {
+  height: 500px;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 20px;
+  margin-top: 16px;
+  box-shadow: 0 0 8px -4px rgba(0, 0, 0, 0.5);
+}
+
+.map .leaflet-container {
+  height: 100%;
+}
+
+.info-flag img {
+  width: 100%;
+  border-radius: 5px;
+}
+.info-name {
+  font-size: 17px;
+  color: #555;
+  text-align: center;
+}
+.info-confirmed,
+.info-recovered,
+.info-deaths {
+  font-size: 14px;
+  margin: 3px 0;
+}
+.info-confirmed span,
+.info-recovered span,
+.info-deaths span {
+  font-weight: bold;
+  color: #666;
+}
+
 @media (max-width: 990px) {
   .app {
     flex-direction: column;
